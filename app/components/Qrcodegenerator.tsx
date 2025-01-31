@@ -5,13 +5,14 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { LayoutGrid, Link, Download } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { QRCodeSVG } from "qrcode.react";
-import { saveAs } from "file-saver"; // ✅ Correct import
-import { toPng } from "html-to-image"; // ✅ Import to capture QR code as an image
+import { saveAs } from "file-saver";
+import { toPng } from "html-to-image";
+import QRCode from "react-qr-code";
 
 function Qrcodegenerator() {
   const [url, setUrl] = React.useState("");
   const [color, setColor] = React.useState("#dde2e9");
-  const [bgcolor, setBgColor] = React.useState("#2268c3");
+  const [bgcolor, setBgColor] = React.useState("#51218c");
   const [logo, setLogo] = React.useState<string | null>(null);
   const [logoFile, setLogoFile] = React.useState<File | null>(null);
 
@@ -21,7 +22,7 @@ function Qrcodegenerator() {
 
     try {
       const dataUrl = await toPng(qrCodeElem);
-      saveAs(dataUrl, "qr-code.png"); // ✅ Save as PNG file
+      saveAs(dataUrl, "qr-code.png");
     } catch (error) {
       console.error("Failed to download QR code:", error);
     }
@@ -57,7 +58,6 @@ function Qrcodegenerator() {
                 {/* Link QR Code */}
                 <TabsContent value="link">
                   <div className="space-y-6">
-                    {/* URL Input */}
                     <div className="space-y-2">
                       <label htmlFor="url" className="font-semibold">
                         URL
@@ -73,7 +73,6 @@ function Qrcodegenerator() {
 
                     {/* QR Code & Background Color Pickers (Side-by-Side) */}
                     <div className="flex gap-4">
-                      {/* QR Code Color */}
                       <div className="space-y-2 flex-1">
                         <label className="font-semibold">QR Code Color</label>
                         <div className="flex items-center gap-2">
@@ -97,7 +96,6 @@ function Qrcodegenerator() {
                         </div>
                       </div>
 
-                      {/* Background Color */}
                       <div className="space-y-2 flex-1">
                         <label className="font-semibold">
                           Background Color
@@ -150,9 +148,9 @@ function Qrcodegenerator() {
             </div>
 
             {/* QR Code Preview (Right Side) */}
-            <div className="relative flex-1 bg-slate-200 rounded-lg flex flex-col justify-center space-y-6">
+            <div className="relative flex-1 bg-blue-500 rounded-lg flex flex-col justify-center space-y-6">
               <span>
-                <LayoutGrid className="w-8 h-8 text-sky-300 absolute top-4 right-4" />
+                <LayoutGrid className="w-8 h-8 text-emerald-100 absolute top-4 right-4" />
               </span>
               <div id="qr-code" className="flex justify-center">
                 <QRCodeSVG
@@ -170,7 +168,7 @@ function Qrcodegenerator() {
               <div className="flex justify-center space-x-4">
                 <button
                   onClick={handleDownload}
-                  className="px-4 py-2 bg-blue-500 text-white rounded-md flex items-center gap-2 hover:bg-blue-700"
+                  className="px-4 py-2 bg-blue-700 text-white rounded-md flex items-center gap-2 hover:bg-blue-900"
                 >
                   <Download className="w-4 h-4" />
                   Download PNG
