@@ -16,20 +16,45 @@ function Qrcodegenerator() {
   const [logo, setLogo] = React.useState<string | null>(null);
   const [logoFile, setLogoFile] = React.useState<File | null>(null);
 
+  // const handleDownload = async () => {
+  //   const qrCodeElem = document.getElementById("qr-code");
+  //   if (!qrCodeElem) return;
+
+  //   try {
+  //     const dataUrl = await toPng(qrCodeElem);
+  //     saveAs(dataUrl, "qr-code.png");
+  //   } catch (error) {
+  //     console.error("Failed to download QR code:", error);
+  //   }
+  // };
   const handleDownload = async () => {
-    const qrCodeElem = document.getElementById("qr-code");
-    if (!qrCodeElem) return;
+    const qrCodeSvg = document.querySelector("#qr-code svg");
+    if (!qrCodeSvg) return;
 
     try {
-      const dataUrl = await toPng(qrCodeElem);
-      saveAs(dataUrl, "qr-code.png");
+      const dataUrl = await toPng(qrCodeSvg); // Convert SVG to PNG
+      saveAs(dataUrl, "qr-code.png"); // Save as PNG
     } catch (error) {
       console.error("Failed to download QR code:", error);
     }
   };
 
+  // const handleDownload = async () => {
+  //   const qrCodeElem = document.querySelector("#qr-code svg");
+  //   if (!qrCodeElem) return;
+
+  //   try {
+  //     const serializer = new XMLSerializer();
+  //     const svgString = serializer.serializeToString(qrCodeElem);
+  //     const blob = new Blob([svgString], { type: "image/svg+xml" });
+  //     saveAs(blob, "qr-code.svg");
+  //   } catch (error) {
+  //     console.error("Failed to download QR code:", error);
+  //   }
+  // };
+
   return (
-    <div className="relative z-10 mx-6 flex max-w-[1250px] w-full min-h-[500px] h-full">
+    <div className="relative z-10 mx-6 flex max-w-[1250px] w-full min-h-[550px] h-full">
       <Card className="flex-1 flex flex-col w-full h-auto mx-auto bg-sky-300 backdrop-blur-md shadow-sm border-2 rounded-xl">
         <CardHeader>
           <CardTitle className="text-2xl font-bold text-center">
@@ -152,6 +177,9 @@ function Qrcodegenerator() {
               <span>
                 <LayoutGrid className="w-8 h-8 text-emerald-100 absolute top-4 right-4" />
               </span>
+              <p className="text-center font-semibold text-2xl text-emerald-100 ">
+                Scan me
+              </p>
               <div id="qr-code" className="flex justify-center">
                 <QRCodeSVG
                   value={url}
