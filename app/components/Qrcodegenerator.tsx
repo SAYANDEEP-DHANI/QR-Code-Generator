@@ -8,6 +8,8 @@ import { QRCodeSVG } from "qrcode.react";
 import { saveAs } from "file-saver";
 import { toPng } from "html-to-image";
 import QRCode from "react-qr-code";
+import Image from "next/image";
+import profilePic from "./dhani.png";
 
 function Qrcodegenerator() {
   const [url, setUrl] = React.useState("");
@@ -28,7 +30,8 @@ function Qrcodegenerator() {
   //   }
   // };
   const handleDownload = async () => {
-    const qrCodeSvg = document.querySelector("#qr-code svg");
+    const qrCodeSvg: HTMLElement | null =
+      document.querySelector("#qr-code svg");
     if (!qrCodeSvg) return;
 
     try {
@@ -58,7 +61,7 @@ function Qrcodegenerator() {
       <Card className="flex-1 flex flex-col w-full h-auto mx-auto bg-sky-300 backdrop-blur-md shadow-sm border-2 rounded-xl">
         <CardHeader>
           <CardTitle className="text-2xl font-bold text-center">
-            QR Code Generator
+            QR Code Generator by Dhani Jewellers
           </CardTitle>
         </CardHeader>
         <CardContent className="flex-1">
@@ -177,8 +180,8 @@ function Qrcodegenerator() {
               <span>
                 <LayoutGrid className="w-8 h-8 text-emerald-100 absolute top-4 right-4" />
               </span>
-              <p className="text-center font-semibold text-2xl text-emerald-100 ">
-                Scan me
+              <p className="text-center font-semibold text-xl text-emerald-100 ">
+                Scan me to get WhatsApp Channels
               </p>
               <div id="qr-code" className="flex justify-center">
                 <QRCodeSVG
